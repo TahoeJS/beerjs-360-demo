@@ -35,7 +35,9 @@ export default class Viewer extends Component {
       zoom
     } = this.props
 
-    if (!image) return false
+    if (!image) {
+      return <h1>No Image</h1>
+    }
 
     return (
       <div className={classes.viewer}>
