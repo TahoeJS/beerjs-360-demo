@@ -1,0 +1,7 @@
+node_modules
+*.log
+*.debug
+templates/modern-responsive-admin-dashboard-template
+bin
+coverage
+jsconfig.json
