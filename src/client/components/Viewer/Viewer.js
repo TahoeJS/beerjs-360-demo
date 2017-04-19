@@ -4,9 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {jssStyles} from './viewer.jss'
 
-const mapStateToProps = state => ({
-  image: state.app.image
-})
+const mapStateToProps = state => ({image: state.app.image})
 const mapDispatchToProps = dispatch => (bindActionCreators({}, dispatch))
 
 @injectSheet(jssStyles)
@@ -47,17 +45,16 @@ export default class Viewer extends Component {
             material={`shader: flat; src: ${image}`}
             id="sky"
             geometry="primitive: sphere; radius: 100"
-            src={image}
           />
 
           <a-entity id="origin" position="0 0 0" />
 
           <a-entity
             id="camera"
-            ref={(el) => { this.cameraEl = el }}
+            ref={(el) => { this.camera = el }}
             rotation={rotation}
             camera={`zoom: ${zoom}; active: true;`}
-            look-controls={`reverseMouseDrag: ${!invertControls}`}
+            look-controls={`reverseMouseDrag: ${!invertControls}; enabled: true;`}
             mouse-cursor
           >
             <a-cursor fuse="true" color="yellow" />

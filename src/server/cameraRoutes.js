@@ -49,17 +49,16 @@ function captureImage (req, res) {
               const {results: {entries}} = images
 
               const source = `http://192.168.1.1/${status.results.fileUri}`
-              const destination = `${path.join(__dirname, '../data/images')}/${status.results.fileUri.replace('/', '-')}`
+              const destination = `${path.join(__dirname, './data/images')}/${status.results.fileUri.replace('/', '-')}`
               const uri = `images/${status.results.fileUri.replace('/', '-')}`
 
               saveFile(source, destination, () => {
+                console.log('FILE SAVED')
                 res.send({
                   sessionId,
                   uri,
                   name: entries[0].name,
-                  date: entries[0].dateTimeZone,
-                  thumbnail: entries[0].thumbnail,
-                  hotspots: []
+                  date: entries[0].dateTimeZone
                 })
               })
             })
@@ -72,6 +71,7 @@ function captureImage (req, res) {
 }
 
 function getImages () {
+  console.log('GET IMAGES')
   const command = {
     name: 'camera.listImages',
     parameters: {
@@ -88,6 +88,7 @@ function getCameraInfo () {
 }
 
 function startSession () {
+  console.log('START SESSION')
   const command = {
     name: 'camera.startSession',
     parameters: {}
@@ -97,6 +98,7 @@ function startSession () {
 }
 
 function takePicture (sessionId) {
+  console.log('TAKE PICTURE')
   const command = {
     name: 'camera.takePicture',
     parameters: {sessionId}
@@ -106,6 +108,7 @@ function takePicture (sessionId) {
 }
 
 function checkDoneStatus (status) {
+  console.log('CHECK DONE')
   return getStatus(status.id).then((nextStatus) => {
     if (nextStatus.state !== 'done') {
       return checkDoneStatus(nextStatus)
@@ -116,6 +119,7 @@ function checkDoneStatus (status) {
 }
 
 function getStatus (id) {
+  console.log('GET PICTURE')
   const command = {id}
   return api.post('osc/commands/status', command)
 }

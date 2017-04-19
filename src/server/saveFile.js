@@ -2,6 +2,9 @@ import fs from 'fs'
 import request from 'request'
 
 export default function saveFile (source, destination, cb) {
+  console.log('source', source)
+  console.log('destination', destination)
+
   request.head(source, (err, res, body) => {
     if (err) throw err
 
